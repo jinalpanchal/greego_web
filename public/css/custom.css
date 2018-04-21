@@ -1,0 +1,30 @@
+body {
+    font-size: 13px !important;
+    font-family: Verdana !important;
+}
+.adminLogo{ margin-left: 33px; }
+.drivmargin{ margin-top: 1%; }
+.error{ color:red; }
+.btnspace{ margin-left: 4%; }
+.btn-default{ border-color: #8c8c8c !important; }
+.login_outer{
+    display: table !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-image: url('../bootstrap_startup/images/banner_login.png') !important;
+    position: relative !important;
+}
+.bg-grey1{
+    height: 113vh !important;
+}
+.admin-action {
+    list-style: none;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333 !important;
+}
+/*.admin-action .dropdown a,a:hover { color: black !important; }*/
+.boxheight{ min-height: 40px !important; }
+.boxheighticon{ height: 55px !important; line-height: 0 !important; padding-top: 6px !important;}
+.content #pro_desc .box{ box-shadow: none !important; }
+#timeline .cardsctn{ /*display: none;*/ }
