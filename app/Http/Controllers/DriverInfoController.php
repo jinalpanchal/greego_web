@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+            
 use Illuminate\Http\Request;
 use Validator;
 use App\Driver;
@@ -14,6 +14,7 @@ class DriverInfoController extends Controller {
 
     public function personal_info(Request $request) {
 //        Session::put('driver_id', 1);
+//        echo
         $data = $request->session()->all();
         $id = $request->session()->get('driver_id');
         $viewdata['profile'] = Driver::find($id);
