@@ -9,6 +9,8 @@ use Validator;
 use Storage;
 use App\User;
 use App\UserVehicle;
+use App\Vehicle;
+use App\VehicleManufacturers;
 use App\UserCard;
 use App\Driver;
 use App\Helpers\Response\ResponseHelper;
@@ -26,6 +28,16 @@ class UserController extends Controller {
             $user->cards;
             $user->vehicles;
             $user->profile_pic = $user->avatar();
+            
+            foreach ($user->vehicles as $v) {
+                
+                $model = $v->vehiclemodel->model;
+                $name = $v->vehiclemodel->vmake->name;
+                $v->vehicle_name = $name;
+                $v->vehicle_model = $model;
+            }
+            
+            dd($user->toArray());
             $this->data = $user->toArray();
             return ResponseHelper::getResponse($this->data, $this->errorCode, $this->errors);
         } catch (Exception $exc) {

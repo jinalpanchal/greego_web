@@ -42,9 +42,14 @@ class AuthController extends Controller {
         $otp = rand(100000, 999999);
         $contact_number = $request->contact_number;
         $us = strpos($contact_number, '+');
-        if ($us == '') {
-            $contact_number = '+1' . $request->contact_number;
-        }
+        // if ($us == '') {
+        //     $contact_number = '+1' . $request->contact_number;
+
+        // }
+        if (strpos($contact_number, '+') !== 0) {
+                $contact_number = '+1' . $request->contact_number;
+            }
+            
         if ($request->user_type == 'driver') {
             $user = Driver::firstOrNew(array('contact_number' => $contact_number));
         } else {
