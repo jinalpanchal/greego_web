@@ -29,6 +29,9 @@ body,html{
     font-weight: 400;
     letter-spacing: 1px;
 }
+:focus {
+    outline: none !important;
+}
 :root {
     --bg-color: #9AA0AC;
     --button-bg-color: #9acafb; 
@@ -75,7 +78,7 @@ body,html{
     color: #fff;
 }
 .bg-grey{
-    height: max-content;
+    /*height: -webkit-fill-available;*/
     background-color: var(--bg-color);
 }
 .bg-grey1{
@@ -215,6 +218,7 @@ a:hover{
     height: 100%;
     border-left: solid 1px grey;
     box-shadow: 1px 0px 4px grey;
+    min-height: 70vh;
 }
 .border-radius{
     border-radius: 2em;
@@ -474,9 +478,102 @@ input[type="file"] {
     border: 1px solid grey;
     border-radius: 0;
 }
+.info_dark{    
+    color: black;
+    font-weight: bolder;
+}
+.border_tr{
+    border: solid 1px #E1E1E1;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    margin-bottom: 5px;
+}
+.circle_i{
+    font-size: 5px;
+    color: grey;
+}
+.box_shadow_tr{
+    box-shadow: 0px 0px 4px grey;
+}
+.info_promo{
+    font-size: 0.9em;
+    color: #fff;
+    background-color: #15C8A0;
+    padding: 0px 25px;
+}
+.start_t{
+    color: green;
+    font-size: 1.4em;
+}
+.end_t{
+    color: green;
+    font-size: 1.4em;
+}
+.time_t{    
+    font-size: 1em;
+    color: grey;
+}
+#table_detail td{
+    vertical-align: text-top;
+    font-size: 0.7em;
+    letter-spacing: initial;
+    color: #000;
+    font-weight: bold;
+    padding: 0px 5px;
+}
+#table_detail address{
+    font-size: 1.3em;
+}
+#table_paydetail td{    
+    vertical-align: text-top;
+    font-size: 0.7em;
+    letter-spacing: initial;
+    color: #000;
+    font-weight: bold;
+    padding: 5px 5px 25px 5px;
+}
+.shadow_body{
+    box-shadow: 0px 0px 13px 0px lightgrey
+}
+.dataTables_length{
+    display: none;
+}
+#user_history_table_paginate .pagination{
+    float: right;
+    margin-bottom: 5%;
+    color:#15C8A0;
+}
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff !important;
+    background-color: #15C8A0 !important;
+    border-color: #15C8A0 !important;
+}
+.page-link {
+    font-weight: bolder;
+    color: #15C8A0 !important;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+.ride_text{
+    color: grey;
+    font-weight: 800;
+}
+#ride_history li{
+    border-radius: 0.5em;
+    margin-bottom: 1%;
+    color: var(--main-color);
+    font-size: 1.5em;
+    font-weight: 600;
+    padding: 3px;
+    border-color: grey;
+}
 /* media for driver form */
 @media(max-device-width : 1280px) {
     .driverfont .drivertext{
         font-size: 13px !important;
+    }
+    .footer{
+        position: unset;
     }
 }

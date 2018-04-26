@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Validator;
+use DB;
 use App\User;
 use App\Driver;
 use App\DriverShippingAddress;
 use App\DriverBankInfo;
 use App\DriverDocument;
+use App\current_trips;
 use Twilio;
 use Session;
 
@@ -65,8 +67,6 @@ class AuthenticateController extends Controller {
                 $user_id = $user['id'];
                 // Session::put('login_user_id', $user_id);
             }
-        } else {
-            return redirect()->back()->withErrors(['contact_number' => 'Please enter valid number.']);
         }
 
         //For temporary (Twilio package has some php warning so didable it for smooth run)
@@ -128,7 +128,15 @@ class AuthenticateController extends Controller {
                     Session::put('login_user_id', $user_id);
                 }
             }
-            return redirect()->route('account.account_dashboard', 'dashboard');
+            if ($driver !== null && $user !== null) {
+                return redirect()->route('account.account_dashboard', 'dashboard');
+            } else {
+                if ($driver !== null) {
+                    return redirect()->route('account.account_dashboard', 'dashboard');
+                }if ($user !== null) {
+                    return redirect()->route('account.user_history', 'user_history');
+                }
+            }
         } else {
 
             $request->session()->forget('login_otp');
@@ -152,7 +160,15 @@ class AuthenticateController extends Controller {
                     Session::put('login_user_id', $user_id);
                 }
             }
-            return redirect()->route('account.account_dashboard', 'dashboard');
+            if ($driver !== null && $user !== null) {
+                return redirect()->route('account.account_dashboard', 'dashboard');
+            } else {
+                if ($driver !== null) {
+                    return redirect()->route('account.account_dashboard', 'dashboard');
+                }if ($user !== null) {
+                    return redirect()->route('account.user_history', 'user_history');
+                }
+            }
 //            return redirect()->back()->withInput($request->all())->withErrors(['otp' => 'The OTP code is not matched.']);
         }
     }
@@ -165,12 +181,15 @@ class AuthenticateController extends Controller {
         $viewdata['profile'] = array();
         if ($id != '') {
             $viewdata['profile'] = Driver::find($id);
+            $viewdata['profile_pic'] = $viewdata['profile']->profile_pic ? env('APP_URL_WITHOUT_PUBLIC') . "/storage/app/" . $viewdata['profile']->profile_pic : "";
         }
         $user_id = $request->session()->get('login_user_id');
 
-        if ($user_id != '') {
-            $viewdata['profile'] = User::find($user_id);
-        }
+//        if ($user_id != '') {
+//            $viewdata['profile'] = User::find($user_id);
+//            $viewdata['profile_pic'] = $viewdata['profile']->profile_pic ? env('APP_URL_WITHOUT_PUBLIC') . "/storage/app/" . $viewdata['profile']->profile_pic : "";
+//        }
+
         if ($section == '') {
             $section = 'dashboard';
         }
@@ -180,8 +199,14 @@ class AuthenticateController extends Controller {
                 return view('dashboard', $viewdata);
                 break;
             case 'driving_history':
+//                $ride_history = current_trips::where('driver_id', '=', $id)->where('payment_status', '=', 1)->get();
+                $ride_history = DB::table('current_trips')
+                        ->select(DB::raw('DATE_FORMAT(created_at,"%Y") as year'), DB::raw('count(*) as total'))
+                        ->groupBy('year')
+                        ->get();
+                $viewdata['ride_history'] = $ride_history;
                 $viewdata['active_menu'] = 'driving_history';
-                return view('dashboard', $viewdata);
+                return view('web_dashboard/driving_history', $viewdata);
                 break;
             case 'documents':
                 $driver_doc = DriverDocument::where('driver_id', '=', $id)->first();
@@ -211,7 +236,7 @@ class AuthenticateController extends Controller {
                 break;
             case 'user_history':
                 $viewdata['active_menu'] = 'user_history';
-                return view('dashboard', $viewdata);
+                return view('web_dashboard/user_history', $viewdata);
                 break;
 
             default :

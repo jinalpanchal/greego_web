@@ -6,7 +6,7 @@
     <div class="row p-4 mt-2">
         <div class="col-md-1">
             @if($profile->profile_pic != '')
-            <img src="{{ $profile->avatar() }}" width="80" class="rounded-circle">
+            <img src="{{ $profile_pic }}" width="80" class="rounded-circle">
             @else
             <img src="{{ asset('bootstrap_startup/images/contact-icon.png') }}" width="80" class="rounded-circle">
             @endif
@@ -20,10 +20,12 @@
             <div class="form-group no-border">
                 <label>First Name</label>
                 <input class="form-control" type="text" name="name" value="{{ $profile->name == '' ? '': $profile->name }}"/>
+                <small class="text-danger">{{ $errors->first('lastname') }}</small>
             </div>
             <div class="form-group no-border">
                 <label>Last Name</label>
-                <input class="form-control" type="text" name="lastname" value="{{ $profile->lastname == '' ? '': $profile->lastname }}"/>
+                <input class="form-control" type="text" name="lastname" value="{{ $profile->lastname == '' ? '' : $profile->lastname }}"/>
+                <small class="text-danger">{{ $errors->first('lastname') }}</small>
             </div>
             <div class="clearfix"></div>
             <div class="form-group no-border">
@@ -32,6 +34,7 @@
 
                     <input class="form-control" type="text" name="email" value="{{ $profile->email == '' ? '': $profile->email }}"/>
                 </div>
+                <small class="text-danger">{{ $errors->first('email') }}</small>
             </div>
             <div class="offset-md-3 col-md-4 mt-3">
                 <div class="form-group shadow-btn">

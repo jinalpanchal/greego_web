@@ -9,9 +9,12 @@
         <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
         <link rel="stylesheet" href="{{ asset('bootstrap_startup/css/style.css') }}">
         <link rel="stylesheet" href="{{ asset('bootstrap_startup/css/custom.css') }}">
-        <link rel="stylesheet" href="{{ asset('bootstrap_startup/bootstrap/css/font-awesome.css') }}">
+
         <link rel="stylesheet" href="{{ asset('bootstrap_startup/bootstrap/css/font-awesome.min.css') }}">
         <link rel="stylesheet" href="{{ asset('intl-tel-input-master/build/css/intlTelInput.css') }} ">
+        <!-- DataTables -->
+        <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
+
         <script src="{{ asset('js/jquery-1.12.4.js') }}"></script>
         <!-- iCheck for checkboxes and radio inputs -->
         <link rel="stylesheet" href="{{ asset('plugins/iCheck/all.css') }}">
@@ -42,7 +45,7 @@
                         {{ $profile->name .' ' .$profile->lastname }} &nbsp;&nbsp;
 
                         @if($profile->profile_pic != '')
-                        <img src="{{ $profile->avatar() }}" width="60" class="rounded-circle">
+                        <img src="{{ $profile_pic }}" width="60" class="rounded-circle">
                         @else
                         <img src="{{ asset('bootstrap_startup/images/contact-icon.png') }}" width="60" class="rounded-circle">
                         @endif
@@ -59,8 +62,8 @@
                     <div class="row">
                         <div class="col-md-3 p-3">
                             <ul class="list-unstyled left-menu">
-                            @if( session('login_driver_id') )
-                            
+                                @if( session('login_driver_id') )
+
                                 <button class="btn btn-primary menu-btn full-width border-radius">Driver</button>
                                 <li class="mt-3">                                
                                     <a href="{{ url('account/dashboard/') }}" @if($active_menu == 'dashboard') class="active" @endif >@if($active_menu == 'dashboard') <i class="fa fa-circle"></i>@endif Dashboard</a>
@@ -91,7 +94,7 @@
                                 @if( session('login_user_id') )
                                 <button class="btn btn-primary menu-btn full-width border-radius">User</button>
                                 <li class="mt-3">                                
-                                    <a href="{{ url('account/user_history/') }}" @if($active_menu == 'user_history') class="active" @endif >@if($active_menu == 'user_history') <i class="fa fa-circle"></i>@endif Dashboard</a>
+                                    <a href="{{ url('account/user_history/') }}" @if($active_menu == 'user_history') class="active" @endif >@if($active_menu == 'user_history') <i class="fa fa-circle"></i>@endif History</a>
                                 </li>                                
                                 @endif
 
@@ -151,7 +154,7 @@
         <script src="{{ URL:: asset('bootstrap_startup/bootstrap/js/bootstrap.min.js') }}"></script>
         <!-- iCheck 1.0.1 -->
         <script src="{{ URL:: asset('plugins/iCheck/icheck.min.js') }}"></script>
- <!-- InputMask -->
+        <!-- InputMask -->
         <script src="{{ URL:: asset('plugins/input-mask/jquery.inputmask.js') }}"></script>
         <script src="{{ URL:: asset('plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
         <script src="{{ URL:: asset('plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
@@ -164,6 +167,11 @@ $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
 });
 
         </script>
+        <!-- DataTables -->
+        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+        <script src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
+        <script src="https://cdn.datatables.net/responsive/2.2.1/js/responsive.bootstrap4.min.js"></script>
 
         @yield('js')
 

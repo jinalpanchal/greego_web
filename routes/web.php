@@ -44,11 +44,19 @@ Route::group(['middleware' => 'CheckAuth'], function() {
     Route::get('account/{payment}', 'AuthenticateController@account')->name('account.payment');
     Route::get('account/{reward}', 'AuthenticateController@account')->name('account.reward');
     Route::get('account/{setting}', 'AuthenticateController@account')->name('account.setting');
+    Route::get('account/{user_history}', 'AuthenticateController@account')->name('account.user_history');
     Route::post('store/document', 'DashboardController@store_document')->name('account.store_document');
     Route::post('store/profile', 'DashboardController@store_profile_data')->name('account.store_profile_data');
     Route::post('store/driver_type', 'DashboardController@store_driver_type')->name('account.store_driver_type');
     Route::post('store/bank_info', 'DashboardController@store_bank_info')->name('account.store_bank_info');
 
+//  AJAX CALL
+    Route::get('get_datas/user_history', 'DashboardController@user_history_datatable')->name('user_history.datatable');
+    Route::get('get_details/user_history_details', 'DashboardController@get_trip_details')->name('user_history.trip_details');
+    Route::get('get_datas/ride_history/{year}','DashboardController@ride_history')->name('driver.ride_history');
+    Route::get('get_datas/ride_history_detail/{year}','DashboardController@driver_history_datatable')->name('driver.ride_history_detail');
+//  AJAX CALL COMPLETE
+    
     Route::get('logout', 'AuthenticateController@logout')->name('logout');
 });
 
